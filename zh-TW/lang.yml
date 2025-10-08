@@ -1,1 +1,122 @@
+# BDStock 語言設定檔
+# 所有面向玩家的訊息都在這裡設定。
+# 您可以自由翻譯此檔案，或修改文字以符合您的伺服器風格。
+# 所有訊息都支援 & 顏色代碼。
+# 佔位符 (例如 %player_name%) 會在遊戲中被動態替換。
 
+prefix: '&7[&bBDStock&7] '
+
+# ============================
+# 通用訊息
+# ============================
+reload: '&a設定檔、股票資料與隨機事件已成功重載！'
+no_permission: '&c你沒有權限使用此指令。'
+player_only: '&c這個指令只能由玩家使用。'
+unknown_command: '&c未知指令。請使用 /stock 查看可用指令。'
+market_closed: '&c現在是閉市時間！無法進行交易。'
+stock_not_found: '&c找不到ID為 &e%stock_id% &c的股票。'
+error:
+  gui_not_found: '§c錯誤: GUI ''%gui_name%'' 在 guis.yml 中找不到設定！'
+
+# ============================
+# 指令相關訊息
+# ============================
+stock_created: '&a成功創建股票 &e%stock_id%&a！'
+stock_deleted: '&c成功刪除股票 &e%stock_id%&c！'
+stock_already_exists: '&cID為 &e%stock_id% &c的股票已存在。'
+
+create_fail:
+  invalid_risk: '&c風險等級必須介於 0-5 之間。'
+  
+toggle_status:
+  suspended: "&a已將 &e%stock_name% &a的狀態切換為 &c[已暫停]§a。"
+  tradable: "&a已將 &e%stock_name% &a的狀態切換為 &a[交易中]§a。"
+
+setprice_usage: "&c用法: /stock setprice <股票ID> <價格>"
+setprice_success: "&a成功將股票 %stock_name% &a的價格設定為 &e$%price%&a。"
+setprice_fail:
+  invalid_number: "&c無效的數字: '%input%'。請輸入一個有效的價格。"
+  negative_price: "&c價格不能為負數。"
+
+event_usage: "&c用法: /stock event <股票ID> <positive|negative>"
+event_trigger_success: "&a成功為股票 &e%stock_id% &a觸發了一個 %type% 事件。"
+event_trigger_fail: "&c觸發失敗！可能是股票ID不存在，或該股票沒有定義此類型的事件。"
+
+invalid_usage:
+  create: "&c用法錯誤: /stock create <ID> <名稱> <價格> <風險(0-5)> <總量>"
+  delete: "&c用法錯誤: /stock delete <ID>"
+  toggle: "&c用法錯誤: /stock toggle <股票ID>"
+  relist: "&c用法錯誤: /stock relist <ID>"
+
+# ============================
+# 交易相關訊息
+# ============================
+transaction_success:
+  buy: "&a成功購買 %amount% 股 %stock_name%&a，總花費 &c$%cost% &a(含手續費 $%fee%)。"
+  sell: "&a成功出售 %amount% 股 %stock_name%&a，淨收入 &b$%payout% &a(已扣除手續費 $%fee%)。"
+transaction_fail:
+  no_money: "&c你的錢不夠！"
+  no_shares: "&c你沒有足夠的 %stock_name% &c股票可以出售！"
+  not_enough_circulating: "&c市場上流通的股票不足！剩餘 &e%amount% &c股可購買。"
+  suspended: "&c此股票目前暫停交易！"
+  not_holding: "&c你並未持有此股票。"
+  buy_max_insufficient_balance: "&c你的餘額不足以購買任何一股。"
+
+# ============================
+# 系統公告
+# ============================
+bankruptcy_announcement: '&6[股市公告] &7公司 %stock_name% &7已正式宣布破產並下市！所有持股已強制清算。'
+relist_announcement: '&6[股市公告] &7公司 %stock_name% &7已完成重組並重新上市交易！'
+relist_success: '&a成功將破產股票 %stock_id% 重新上市！'
+relist_fail:
+  not_bankrupt: '&c股票 %stock_id% 並未破產，無法重新上市。'
+
+# ============================
+# GUI & 其他
+# ============================
+market_closed_lore: '&e將於 %countdown% 後開市'
+unknown_timezone: "未知"
+
+market_status:
+  open: "§a開市中"
+  closed: "§c休息中"
+
+stock_status:
+  bankrupt: "§c§l[已破產]"
+  market_closed: "§e[休息中]"
+  tradable: "§a[交易中]"
+  suspended: "§c[已暫停]"
+
+gui:
+  bankrupt_prefix: "§c§l[已破產] "
+  default_lore:
+    bankrupt: "§7這家公司已經下市。"
+
+countdown:
+  market_open: "開市中"
+  no_schedule: "近期無開市計畫"
+  format: "%hours% 時 %minutes% 分 %seconds% 秒"
+
+schedule_format:
+  open: "&7%day%: &a%open%-%close%"
+  closed: "&7%day%: &c不開放"
+  always_open: "&7交易時間: &a24/7 全天候開放"
+
+days:
+  monday: "星期一"
+  tuesday: "星期二"
+  wednesday: "星期三"
+  thursday: "星期四"
+  friday: "星期五"
+  saturday: "星期六"
+  sunday: "星期日"
+
+tab_complete:
+  risk: "<風險(0-5)>"
+  total_shares: "<總發行量>"
+  
+reload_progress:
+  step1: '&e[1/4] 正在停止背景任務...'
+  step2: '&e[2/4] 正在重載設定檔...'
+  step3: '&e[3/4] 正在智能重載股票資料...'
+  step4: '&e[4/4] 正在重新啟動背景任務...'
