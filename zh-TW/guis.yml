@@ -1,1 +1,220 @@
 
+# BDStock GUI 設定檔
+# 作者: weiqi0523
+
+definitions:
+  border_item: &border_item
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+
+guis:
+  main_market:
+    title: "&1&l股票市場 - %market_status%"
+    size: 54
+    items:
+      'border_0': {<<: *border_item, slot: 0}
+      'border_1': {<<: *border_item, slot: 1}
+      'border_2': {<<: *border_item, slot: 2}
+      'border_6': {<<: *border_item, slot: 6}
+      'border_7': {<<: *border_item, slot: 7}
+      'border_8': {<<: *border_item, slot: 8}
+      'border_9': {<<: *border_item, slot: 9}
+      'border_17': {<<: *border_item, slot: 17}
+      'border_18': {<<: *border_item, slot: 18}
+      'border_26': {<<: *border_item, slot: 26}
+      'border_27': {<<: *border_item, slot: 27}
+      'border_35': {<<: *border_item, slot: 35}
+      'border_36': {<<: *border_item, slot: 36}
+      'border_44': {<<: *border_item, slot: 44}
+      'border_45': {<<: *border_item, slot: 45}
+      'border_46': {<<: *border_item, slot: 46}
+      'border_47': {<<: *border_item, slot: 47}
+      'border_51': {<<: *border_item, slot: 51}
+      'border_52': {<<: *border_item, slot: 52}
+      'border_53': {<<: *border_item, slot: 53}
+      'profit_leaderboard_button': {material: EMERALD, slot: 3, name: "&a&l股神排行榜", lore: ["&7查看伺服器中已實現總利潤最高的玩家。"], action: "open_profit_leaderboard"}
+      'info_board': 
+        material: OAK_SIGN
+        slot: 4
+        name: "&b市場與玩家資訊"
+        lore:
+          - "&7玩家: &f%player_name%"
+          - "&7餘額: &6$%player_balance%"
+          - ""
+          - "&7市場時區: &e%market_timezone%"
+          - "%market_schedule_lines%"
+      'loss_leaderboard_button': {material: REDSTONE, slot: 5, name: "&c&l韭菜排行榜", lore: ["&7查看伺服器中已實現總虧損最多的玩家。"], action: "open_loss_leaderboard"}
+      'portfolio_button': {material: BOOK, slot: 48, name: "&e» 查看我的持股", lore: ["&7點擊切換到你的個人持股頁面。"], action: "open_portfolio"}
+      'refresh_button': {material: LIME_DYE, slot: 50, name: "&a&l重新整理", lore: ["&7點擊以更新所有股票的最新價格。"], action: "refresh_market"}
+        
+    stock_template:
+      material: PAPER
+      name: "%stock_name% %stock_status_display%"
+      lore: 
+        - "&7代號: &8%stock_id%"
+        - "&7當前價格: &b$%stock_price%"
+        - "&7開盤價格: &7$%stock_initialprice%"
+        - "&7漲跌: %stock_change_prefix% %stock_change_percent%%"
+        - ""
+        - "&7最高/最低: &a$%stock_high%&7/&c$%stock_low%"
+        - "&7成交量: &f%stock_volume%"
+        - "&7市值: &e$%stock_market_cap%"
+        - "&7流通/總量: &f%stock_circulating_shares% / %stock_total_shares%"
+        - ""
+        - "&e點擊進行交易"
+      lore_bankrupt: ["&7代號: &8%stock_id%", "&7下市時間: &8%stock_bankruptcy_time%", "", "&c&l已下市", "&7這家公司因經營不善已宣告破產。", "&8無法進行任何操作。"]
+      action: "open_trade"
+    layout:
+      slots: [10,11,12,13,14,15,16, 19,20,21,22,23,24,25, 28,29,30,31,32,33,34, 37,38,39,40,41,42,43]
+  
+  portfolio:
+    title: "&2&l我的持股"
+    size: 54
+    items:
+      'border_0': {<<: *border_item, slot: 0}
+      'border_1': {<<: *border_item, slot: 1}
+      'border_2': {<<: *border_item, slot: 2}
+      'border_3': {<<: *border_item, slot: 3}
+      'border_4': {<<: *border_item, slot: 4}
+      'border_5': {<<: *border_item, slot: 5}
+      'border_6': {<<: *border_item, slot: 6}
+      'border_7': {<<: *border_item, slot: 7}
+      'border_8': {<<: *border_item, slot: 8}
+      'border_9': {<<: *border_item, slot: 9}
+      'border_17': {<<: *border_item, slot: 17}
+      'border_18': {<<: *border_item, slot: 18}
+      'border_26': {<<: *border_item, slot: 26}
+      'border_27': {<<: *border_item, slot: 27}
+      'border_35': {<<: *border_item, slot: 35}
+      'border_36': {<<: *border_item, slot: 36}
+      'border_44': {<<: *border_item, slot: 44}
+      'border_45': {<<: *border_item, slot: 45}
+      'border_46': {<<: *border_item, slot: 46}
+      'border_47': {<<: *border_item, slot: 47}
+      'border_48': {<<: *border_item, slot: 48}
+      'border_51': {<<: *border_item, slot: 51}
+      'border_52': {<<: *border_item, slot: 52}
+      'border_53': {<<: *border_item, slot: 53}
+      'market_button': {material: COMPASS, slot: 49, name: "&a» 返回股票市場", lore: ["&7點擊返回主市場。"], action: "open_market"}
+      'refresh_button': {material: LIME_DYE, slot: 50, name: "&a&l重新整理", lore: ["&7點擊以更新你持股的當前價值和損益。"], action: "refresh_portfolio"}
+    holding_template:
+      material: GOLD_INGOT
+      name: "%stock_name%"
+      lore: ["&7持有數量: &e%holding_shares% 股", "&7平均成本: &b$%holding_avg_cost%", "&7當前價格: &b$%stock_price%", "", "&7總投資額: &7$%holding_total_cost%", "&7當前總值: &6$%holding_current_value%", "&7損益金額: %holding_profit_prefix% $%holding_profit%", "&7損 益 率: %holding_profit_prefix% %holding_profit_percent%%", "", "&a左鍵: &7查看交易", "&c右鍵: &7賣出 1 股", "&cShift+左鍵: &7賣出 10 股", "&cShift+右鍵: &7全部賣出"]
+      lore_bankrupt: ["&7持有數量: &c0 股 (已清算)", "&7下市時間: &8%stock_bankruptcy_time%", "", "&c這筆投資已確認為全額虧損。", "&8無法進行任何操作。"]
+      action: "handle_holding"
+    layout:
+      slots: [10,11,12,13,14,15,16, 19,20,21,22,23,24,25, 28,29,30,31,32,33,34, 37,38,39,40,41,42,43]
+
+  leaderboard_profit:
+    title: "&a&l股神排行榜 (總獲利)"
+    size: 54
+    items:
+      'border_0': {<<: *border_item, slot: 0}
+      'border_1': {<<: *border_item, slot: 1}
+      'border_2': {<<: *border_item, slot: 2}
+      'border_3': {<<: *border_item, slot: 3}
+      'border_4': {<<: *border_item, slot: 4}
+      'border_5': {<<: *border_item, slot: 5}
+      'border_6': {<<: *border_item, slot: 6}
+      'border_7': {<<: *border_item, slot: 7}
+      'border_8': {<<: *border_item, slot: 8}
+      'border_9': {<<: *border_item, slot: 9}
+      'border_17': {<<: *border_item, slot: 17}
+      'border_18': {<<: *border_item, slot: 18}
+      'border_26': {<<: *border_item, slot: 26}
+      'border_27': {<<: *border_item, slot: 27}
+      'border_35': {<<: *border_item, slot: 35}
+      'border_36': {<<: *border_item, slot: 36}
+      'border_44': {<<: *border_item, slot: 44}
+      'border_45': {<<: *border_item, slot: 45}
+      'border_46': {<<: *border_item, slot: 46}
+      'border_47': {<<: *border_item, slot: 47}
+      'border_48': {<<: *border_item, slot: 48}
+      'border_50': {<<: *border_item, slot: 50}
+      'border_51': {<<: *border_item, slot: 51}
+      'border_52': {<<: *border_item, slot: 52}
+      'border_53': {<<: *border_item, slot: 53}
+      'back_button': {material: BARRIER, slot: 49, name: "&c« 返回主市場", action: "open_market"}
+    leaderboard_template:
+      material: PLAYER_HEAD
+      name: "&e#%rank% &f%leaderboard_player_name%"
+      lore: ["&7已實現總利潤: &a+$%leaderboard_profit_amount%"]
+    layout:
+      slots: [10,11,12,13,14,15,16, 19,20,21,22,23,24,25, 28,29,30,31,32,33,34, 37,38,39,40,41,42,43]
+
+  leaderboard_loss:
+    title: "&c&l韭菜排行榜 (總虧損)"
+    size: 54
+    items:
+      'border_0': {<<: *border_item, slot: 0}
+      'border_1': {<<: *border_item, slot: 1}
+      'border_2': {<<: *border_item, slot: 2}
+      'border_3': {<<: *border_item, slot: 3}
+      'border_4': {<<: *border_item, slot: 4}
+      'border_5': {<<: *border_item, slot: 5}
+      'border_6': {<<: *border_item, slot: 6}
+      'border_7': {<<: *border_item, slot: 7}
+      'border_8': {<<: *border_item, slot: 8}
+      'border_9': {<<: *border_item, slot: 9}
+      'border_17': {<<: *border_item, slot: 17}
+      'border_18': {<<: *border_item, slot: 18}
+      'border_26': {<<: *border_item, slot: 26}
+      'border_27': {<<: *border_item, slot: 27}
+      'border_35': {<<: *border_item, slot: 35}
+      'border_36': {<<: *border_item, slot: 36}
+      'border_44': {<<: *border_item, slot: 44}
+      'border_45': {<<: *border_item, slot: 45}
+      'border_46': {<<: *border_item, slot: 46}
+      'border_47': {<<: *border_item, slot: 47}
+      'border_48': {<<: *border_item, slot: 48}
+      'border_50': {<<: *border_item, slot: 50}
+      'border_51': {<<: *border_item, slot: 51}
+      'border_52': {<<: *border_item, slot: 52}
+      'border_53': {<<: *border_item, slot: 53}
+      'back_button': {material: BARRIER, slot: 49, name: "&c« 返回主市場", action: "open_market"}
+    leaderboard_template:
+      material: PLAYER_HEAD
+      name: "&7#%rank% &f%leaderboard_player_name%"
+      lore: ["&7已實現總虧損: &c-$%leaderboard_loss_amount%"]
+    layout:
+      slots: [10,11,12,13,14,15,16, 19,20,21,22,23,24,25, 28,29,30,31,32,33,34, 37,38,39,40,41,42,43]
+
+  trade:
+    title: "&8交易: %stock_name%"
+    size: 36
+    items:
+      'border_0': {<<: *border_item, slot: 0}
+      'border_1': {<<: *border_item, slot: 1}
+      'border_2': {<<: *border_item, slot: 2}
+      'border_3': {<<: *border_item, slot: 3}
+      'border_5': {<<: *border_item, slot: 5}
+      'border_6': {<<: *border_item, slot: 6}
+      'border_7': {<<: *border_item, slot: 7}
+      'border_8': {<<: *border_item, slot: 8}
+      'border_18': {<<: *border_item, slot: 18}
+      'border_19': {<<: *border_item, slot: 19}
+      'border_25': {<<: *border_item, slot: 25}
+      'border_26': {<<: *border_item, slot: 26}
+      'border_28': {<<: *border_item, slot: 28}
+      'border_29': {<<: *border_item, slot: 29}
+      'border_30': {<<: *border_item, slot: 30}
+      'border_32': {<<: *border_item, slot: 32}
+      'border_33': {<<: *border_item, slot: 33}
+      'border_34': {<<: *border_item, slot: 34}
+      'border_35': {<<: *border_item, slot: 35}
+
+      'stock_info': {material: MAP, slot: 4, name: "&e%stock_name%", lore: ["&7目前價格: &b$%stock_price%", "&7你的持股: &e%holding_shares% 股"]}
+      'sell_max_button': {material: REDSTONE_BLOCK, slot: 9, name: "&c&l最大化出售", lore: ["&7點擊以一次性設定數量為", "&7你持有的所有此股票股份。"], action: "sell_max"}
+      'buy_max_button': {material: GOLD_BLOCK, slot: 17, name: "&6&l最大化購買", lore: ["&7點擊以自動計算並填入", "&7你目前能購買的最大數量。"], action: "buy_max"}
+      'buy_button': {material: EMERALD_BLOCK, slot: 20, name: "&a&l確認購買", lore_sufficient: ["&7購買 &e%trade_amount% &7股。", "", "&7總花費: &c$%trade_total_cost%"], lore_insufficient: ["&c餘額不足！", "", "&7你還差: &c$%trade_shortfall%"], lore_suspended: ["&c&l交易已關閉"], action: "buy_stock"}
+      'sell_button': {material: EMERALD, slot: 24, name: "&a&l確認出售", lore: ["&7出售 &e%trade_amount% &7股。", "", "&7預計收入: &a$%trade_total_payout%"], lore_no_shares: ["&c你沒有足夠的股票可供出售。"], lore_suspended: ["&c&l交易已關閉"], action: "sell_stock"}
+      'trade_amount_display': {material: DIAMOND, slot: 13, name: "&b交易數量: &e&l%trade_amount%", lore: ["&7點擊下方按鈕調整數量"]}
+      'add_1': {material: GREEN_STAINED_GLASS_PANE, slot: 14, name: "&a+1", action: "change_amount", change_amount: 1}
+      'add_10': {material: LIME_WOOL, slot: 15, name: "&a+10", action: "change_amount", change_amount: 10}
+      'add_100': {material: EMERALD, slot: 16, name: "&a+100", action: "change_amount", change_amount: 100}
+      'remove_1': {material: RED_STAINED_GLASS_PANE, slot: 12, name: "&c-1", action: "change_amount", change_amount: -1}
+      'remove_10': {material: RED_WOOL, slot: 11, name: "&c-10", action: "change_amount", change_amount: -10}
+      'remove_100': {material: REDSTONE, slot: 10, name: "&c-100", action: "change_amount", change_amount: -100}
+      'back_button': {material: BARRIER, slot: 27, name: "&c« 返回", action: "open_market"}
+      'refresh_button': {material: CLOCK, slot: 31, name: "&a&l重新整理價格", lore: ["&7點擊以獲取最新的股票價格。"], action: "refresh_trade"}
