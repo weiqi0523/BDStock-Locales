@@ -33,3 +33,4 @@ Welcome to the official community translation repository for the BDStock plugin!
 
 * `zh-TW` - 繁體中文 (Traditional Chinese) weiqi0523
 * `zh-CN` - 簡體中文 (Chinese) | weiqi0523
+
