@@ -1,1 +1,672 @@
+# BDStock 語言設定檔
+# 所有面向玩家的訊息都在這裡設定。
+# 您可以自由翻譯此檔案，或修改文字以符合您的伺服器風格。
+# 所有訊息都支援 & 顏色代碼。
+# 佔位符 (例如 %player_name%) 會在遊戲中被動態替換。
 
+prefix: '&7[&bBDStock&7] '
+
+# ============================
+# 通用訊息
+# ============================
+reload: '&a設定檔、股票資料與隨機事件已成功重載！'
+no_permission: '&c你沒有權限使用此指令。'
+player_only: '&c這個指令只能由玩家使用。'
+unknown_command: '&c未知指令。請使用 /stock 查看可用指令。'
+market_closed: '&c現在是閉市時間！無法進行交易。'
+stock_not_found: '&c找不到ID為 &e%stock_id% &c的股票。'
+unknown_player: 未知玩家
+error:
+  gui_not_found: '§c錯誤: GUI ''%gui_name%'' 在 guis.yml 中找不到設定！'
+
+# ============================
+# 指令相關訊息
+# ============================
+stock_created: '&a成功創建股票 &e%stock_id%&a！'
+stock_deleted: '&c成功刪除股票 &e%stock_id%&c！'
+stock_already_exists: '&cID為 &e%stock_id% &c的股票已存在。'
+
+create_fail:
+  invalid_risk: '&c風險等級必須介於 0-5 之間。'
+
+toggle_status:
+  suspended: '&a已將 &e%stock_name% &a的狀態切換為 &c[已暫停]§a。'
+  tradable: '&a已將 &e%stock_name% &a的狀態切換為 &a[交易中]§a。'
+
+setprice_usage: '&c用法: /stock setprice <股票ID> <價格>'
+setprice_success: '&a成功將股票 %stock_name% &a的價格設定為 &e$%price%&a。'
+setprice_fail:
+  invalid_number: '&c無效的數字: ''%input%''。請輸入一個有效的價格。'
+  negative_price: '&c價格不能為負數。'
+
+event_usage: '&c用法: /stock event <股票ID> <positive|negative>'
+event_trigger_success: '&a成功為股票 &e%stock_id% &a觸發了一個 %type% 事件。'
+event_trigger_fail: '&c觸發失敗！可能是股票ID不存在，或該股票沒有定義此類型的事件。'
+
+invalid_usage:
+  create: '&c用法錯誤: /stock create <ID> <名稱> <價格> <風險(0-5)> <總量>'
+  delete: '&c用法錯誤: /stock delete <ID>'
+  toggle: '&c用法錯誤: /stock toggle <股票ID>'
+  relist: '&c用法錯誤: /stock relist <ID>'
+  company_create: '&c用法: /bdcomp create <代碼> <名稱> <資本額> <股數>'
+  company_info: '&c用法: /bdcomp info <公司代碼>'
+  company_board: '&c用法: /bdcomp board <invite|kick|promote|list> [玩家名稱]'
+  company_treasury: '&c用法: /bdcomp treasury <deposit|withdraw|info> [金額]'
+  company_shares: '&c用法: /bdcomp shares give <玩家名稱> <數量>'
+  company_ipo: '&c用法: /bdcomp ipo <價格> <股數>'
+  company_transfer: '&c用法: /bdcomp transfer <玩家名稱> <股數> [每股價格]'
+  company_vote: '&c用法: /bdcomp vote <yes|no>'
+  company_dividend: '&c用法: /bdcomp dividend <每股金額>'
+  company_admin: '&c用法: /bdcomp admin <setceo|setstatus|delete> <公司ID> [參數]'
+
+# ============================
+# 交易相關訊息
+# ============================
+transaction_success:
+  buy: '&a成功購買 %amount% 股 %stock_name%&a，總花費 &c$%cost% &a(含手續費 $%fee%)。'
+  sell: '&a成功出售 %amount% 股 %stock_name%&a，淨收入 &b$%payout% &a(已扣除手續費 $%fee%)。'
+transaction_fail:
+  no_money: '&c你的錢不夠！'
+  no_shares: '&c你沒有足夠的 %stock_name% &c股票可以出售！'
+  not_enough_circulating: '&c市場上流通的股票不足！剩餘 &e%amount% &c股可購買。'
+  suspended: '&c此股票目前暫停交易！'
+  not_holding: '&c你並未持有此股票。'
+  buy_max_insufficient_balance: '&c你的餘額不足以購買任何一股。'
+
+# ============================
+# 大量交易波動
+# ============================
+volume_impact_notice: '&e[市場波動] &7大量交易引起價格波動: %stock_name% &7(%change%)'
+
+# ============================
+# 反作弊系統
+# ============================
+anti_exploit:
+  cooldown_blocked: '&c交易冷卻中！請等待 %remaining% 秒後再進行反向交易。'
+  cooldown_penalty: '&e注意：由於快速反向交易，本次賣出收益被降低 %penalty%%。'
+  pattern_warning: '&c警告：偵測到異常交易模式，已通知管理員。'
+  admin_pattern_alert: '&c[反作弊] 玩家 %player% 在 %stock_id% 上觸發了快速交易警報。'
+
+# ============================
+# 玩家創建股票
+# ============================
+player_stock_created: '&a成功創建股票 &e%stock_id%&a！花費 &c$%cost%&a。'
+player_stock_limit: '&c你已達到最大創建股票數量限制 (%max%)！'
+player_stock_no_money: '&c你需要 &e$%cost% &c來創建股票！'
+player_stock_invalid_price: '&c價格必須在 $%min% 到 $%max% 之間。'
+player_stock_invalid_shares: '&c發行量必須在 %min% 到 %max% 之間。'
+player_stocks_disabled: '&c玩家創建股票功能已被關閉。'
+player_stock_ipo_locked: '&c此股票正在IPO鎖定期，擁有者暫時無法交易。'
+player_stock_owner_cannot_buy: '&c你無法購買自己創建的股票。'
+player_stock_sell_limit: '&c你今日已達到擁有者賣出限制。'
+player_stock_min_listing: '&c此股票尚未達到最低上市時間，無法刪除。'
+
+# ============================
+# 系統公告
+# ============================
+bankruptcy_announcement: '&6[股市公告] &7公司 %stock_name% &7已正式宣布破產並下市！所有持股已強制清算。'
+relist_announcement: '&6[股市公告] &7公司 %stock_name% &7已完成重組並重新上市交易！'
+relist_success: '&a成功將破產股票 %stock_id% 重新上市！'
+relist_fail:
+  not_bankrupt: '&c股票 %stock_id% 並未破產，無法重新上市。'
+
+# ============================
+# 熔斷機制
+# ============================
+circuit_breaker:
+  triggered: '&c[熔斷] &7股票 %stock_name% &7價格變動 %change%%，觸發熔斷暫停交易 %minutes% 分鐘。'
+  restored: '&a[熔斷解除] &7股票 %stock_name% &7已恢復交易。'
+
+# ============================
+# 股票分割
+# ============================
+stock_split:
+  announcement: '&6[股市公告] &7股票 %stock_name% &7進行 %ratio% 分割！股價: $%old_price% → $%new_price%'
+  disabled: '&c股票分割功能未啟用。'
+  usage: '&c用法: /stock split <股票ID> <比例>'
+  invalid_ratio: '&c無效的比例。請輸入正整數。'
+  ratio_out_of_range: '&c分割比例必須在 2 到 10 之間。'
+  cannot_split_bankrupt: '&c無法分割已破產的股票。'
+  invalid_result: '&c無效的分割結果，請檢查參數。'
+  success: '&a成功對股票 %stock_name% 執行 %ratio% 分割。'
+
+# ============================
+# GUI & 其他
+# ============================
+market_closed_lore: '&e將於 %countdown% 後開市'
+unknown_timezone: 未知
+
+market_status:
+  open: §a開市中
+  closed: §c休息中
+
+stock_status:
+  bankrupt: §c§l[已破產]
+  market_closed: §e[休息中]
+  tradable: §a[交易中]
+  suspended: §c[已暫停]
+
+# 股票類型顯示
+stock_type:
+  system: §7系統股票
+  player: §e玩家股票
+
+# 股票擁有者顯示
+stock_owner:
+  system: §7系統
+
+gui:
+  bankrupt_prefix: '§c§l[已破產] '
+  default_lore:
+    bankrupt: §7這家公司已經下市。
+
+countdown:
+  market_open: 開市中
+  no_schedule: 近期無開市計畫
+  format: '%hours% 時 %minutes% 分 %seconds% 秒'
+
+schedule_format:
+  open: '&7%day%: &a%open%-%close%'
+  closed: '&7%day%: &c不開放'
+  always_open: '&7交易時間: &a24/7 全天候開放'
+
+days:
+  monday: 星期一
+  tuesday: 星期二
+  wednesday: 星期三
+  thursday: 星期四
+  friday: 星期五
+  saturday: 星期六
+  sunday: 星期日
+
+reload_progress:
+  step1: '&e[1/4] 正在停止背景任務...'
+  step2: '&e[2/4] 正在重載設定檔...'
+  step3: '&e[3/4] 正在智能重載股票資料...'
+  step4: '&e[4/4] 正在重新啟動背景任務...'
+
+# ============================
+# 公司系統
+# ============================
+company_disabled: '&c公司系統已被關閉。'
+company_help: |
+  &b=== 公司系統指令 ===
+  &e/bdcomp create <代碼> <名稱> <資本額> <股數> &7- 創建公司
+  &e/bdcomp info <代碼> &7- 查看公司資訊
+  &e/bdcomp list &7- 列出所有公司
+  &e/bdcomp board <invite|kick|promote|list> [玩家] &7- 董事會管理
+  &e/bdcomp shares give <玩家> <數量> &7- 分配庫藏股
+  &e/bdcomp transfer <玩家> <股數> [每股價格] &7- 轉讓股份
+  &e/bdcomp treasury <deposit|withdraw|info> [金額] &7- 金庫管理
+  &e/bdcomp ipo <價格> <股數> &7- 發起上市提案
+  &e/bdcomp vote <yes|no> &7- 對進行中的提案投票
+  &e/bdcomp dividend <每股金額> &7- 發放股息
+  &e/bdcomp dissolve &7- 發起解散提案
+# --- 公司創建 ---
+company_created: '&a成功創建公司 &e%company_name% &a(%company_id%)！總花費 &c$%cost%&a。'
+company_create_fail:
+  already_exists: '&c代碼 &e%company_id% &c已被使用。'
+  limit_reached: '&c你已達到最大公司創建數量限制 (%max%)！'
+  no_money: '&c你需要 &e$%cost% &c(註冊費 + 資本額) 來創建公司！'
+  invalid_capital: '&c資本額必須在 $%min% 到 $%max% 之間。'
+  invalid_shares: '&c股數必須在 %min% 到 %max% 之間。'
+
+# --- 公司資訊 ---
+company_not_found: '&c找不到代碼為 &e%company_id% &c的公司。'
+company_info:
+  header: '&b&l=== %company_name% (%company_id%) ==='
+  status: '&7狀態: %status%'
+  founder: '&7創辦人: &f%founder%'
+  ceo: '&7CEO: &f%ceo%'
+  capital: '&7註冊資本: &e$%capital%'
+  shares: '&7股份: 核定 &f%authorized% &7| 已發行 &f%issued% &7| 庫藏 &f%treasury%'
+  share_price: '&7每股面額: &e$%price%'
+  board: '&7董事會: &f%count% 人'
+  treasury_balance: '&7金庫餘額: &e$%balance%'
+  stock: '&7上市股票: &f%stock_id%'
+company_status:
+  PRIVATE: '&7[私人]'
+  PRE_IPO: '&e[準備上市]'
+  PUBLIC: '&a[已上市]'
+  SUSPENDED: '&c[已暫停]'
+  DISSOLVED: '&8[已解散]'
+
+# --- 公司列表 ---
+company_list:
+  header: '&b&l=== 公司列表 ==='
+  entry: '&e%company_id% &7- %company_name% %status%'
+  empty: '&7目前沒有任何公司。'
+
+# --- 董事會 ---
+company_board:
+  invited: '&a成功邀請 &e%player% &a加入 %company_name% 的董事會！'
+  kicked: '&a成功將 &e%player% &a從 %company_name% 的董事會移除。'
+  promoted: '&a已將 CEO 職位轉讓給 &e%player%&a。'
+  list_header: '&b=== %company_name% 董事會 ==='
+  list_entry: '&7- &f%player% &7(%role%) &7持股: %shares%'
+  fail:
+    already_member: '&c%player% 已經是公司成員。'
+    not_member: '&c%player% 不是公司成員。'
+    board_full: '&c董事會已滿 (%max% 人)。'
+    cannot_kick_founder: '&c不能踢出創辦人。'
+    not_ceo: '&c只有 CEO 才能執行此操作。'
+    no_company: '&c你不是任何公司的 CEO。'
+
+# --- 股份 ---
+company_shares:
+  given: '&a成功從庫藏股分配 &e%shares% 股 &a給 &e%player%&a。'
+  fail:
+    insufficient: '&c庫藏股不足！剩餘 %remaining% 股。'
+
+# --- 轉讓 ---
+company_transfer:
+  success: '&a成功將 &e%shares% 股 &a轉讓給 &e%player%&a。'
+  received: '&a你從 &e%sender% &a收到了 %company_name% 的 &e%shares% 股&a。'
+  fail:
+    insufficient: '&c你的持股不足！你只有 %current% 股。'
+    not_private: '&c只有私人公司才能進行私下轉讓。'
+    buyer_no_money: '&c對方餘額不足以支付轉讓費用。'
+
+# --- 金庫 ---
+company_treasury:
+  deposited: '&a成功向 %company_name% 金庫存入 &e$%amount%&a。'
+  withdrawn: '&a成功從 %company_name% 金庫提取 &e$%amount%&a。'
+  info: '&b%company_name% 金庫餘額: &e$%balance%'
+  fail:
+    insufficient_balance: '&c你的餘額不足。'
+    insufficient_treasury: '&c金庫餘額不足。'
+    need_vote: '&c提取金額超過 $%threshold%，需要董事會投票。已自動發起投票提案。'
+
+# --- IPO ---
+company_ipo_success: '&6[公司公告] &a%company_name% &a已成功上市！股票代碼: &e%stock_id%&a，IPO價格:
+  &e$%ipo_price%&a，公開流通 &e%ipo_shares% 股&a。'
+company_ipo:
+  proposal_started: '&a已發起 IPO 提案！等待董事會投票。'
+  fail:
+    already_public: '&c公司已經上市。'
+    not_private: '&c只有私人公司才能申請上市。'
+    capital_too_low: '&c資本額未達 IPO 最低要求 ($%min_capital%)。'
+    too_young: '&c公司成立不足 %min_days% 天，無法申請上市。'
+    board_too_small: '&c董事會人數不足，至少需要 %min_members% 位董事。'
+    invalid_shares: '&c公開流通比例必須在 %min%%~%max%% 之間 (%min_shares%~%max_shares% 股)。'
+    insufficient_treasury: '&c庫藏股不足 (需要 %required%，目前 %current%)。'
+    has_active_vote: '&c已有進行中的投票，請等待完成。'
+
+# --- 投票 ---
+company_vote_started: '&6[投票] &e%company_name% &7發起了 &f%vote_type% &7投票 (提案人: %proposer%)。請使用
+  /bdcomp vote yes 或 /bdcomp vote no 投票。'
+company_vote_passed: '&a[投票] &e%company_name% &a的 %vote_type% 提案已&a通過！'
+company_vote_failed: '&c[投票] &e%company_name% &c的 %vote_type% 提案已&c否決。'
+company_vote:
+  cast_success: '&a投票成功！'
+  fail:
+    no_active: '&c目前沒有進行中的投票。'
+    already_voted: '&c你已經投過票了。'
+    not_board: '&c只有董事會成員才能投票。'
+    no_shares: '&c你沒有持股，無法投票。'
+
+# --- 股息 ---
+company_dividend:
+  success: '&a成功發放股息！每股 &e$%amount%&a，共支出 &c$%total%&a。'
+  fail:
+    insufficient: '&c金庫餘額不足以支付所有股息。需要 $%required%，目前 $%current%。'
+
+# --- 解散 ---
+company_dissolved: '&6[公司公告] &c%company_name% &c已正式宣告解散。剩餘資產已按比例返還給股東。'
+company_dissolve:
+  proposal_started: '&a已發起公司解散提案！等待董事會投票。'
+  fail:
+    has_active_vote: '&c已有進行中的投票，請等待完成。'
+
+# --- 管理員 ---
+company_admin:
+  ceo_changed: '&a已將 %company_name% 的 CEO 更換為 &e%player%&a。'
+  status_changed: '&a已將 %company_name% 的狀態更改為 %status%。'
+  deleted: '&c已刪除公司 %company_id%。'
+
+# --- 內部人鎖定 ---
+company_insider_locked: '&c你是公司內部人，目前處於上市後鎖定期，暫時無法在交易所賣出。'
+
+# ============================
+# 公司系統 (指令用 - 平面鍵名)
+# ============================
+
+# --- 通用 ---
+invalid_amount: '&c無效的數字。請輸入正確的金額。'
+player_not_found: '&c找不到玩家 &e%player%&c。'
+company_not_member: '&c你不是任何公司的成員。'
+company_not_ceo: '&c你不是任何公司的 CEO。'
+company_ceo_only: '&c只有 CEO 才能執行此操作。'
+company_no_permission: '&c你沒有權限執行此操作。'
+
+# --- 創建 ---
+company_invalid_capital: '&c資本額必須在 $%min% 到 $%max% 之間。'
+company_invalid_shares: '&c股數必須在 %min% 到 %max% 之間。'
+company_limit: '&c你已達到最大公司創建數量限制 (%max%)！'
+company_no_money: '&c你需要 &e$%cost% &c(註冊費 + 資本額) 來創建公司！'
+company_already_exists: '&c代碼 &e%company_id% &c已被使用。'
+
+# --- 資訊 ---
+company_info_header: '&b&l=== %company_name% (%company_id%) ==='
+company_info_status: '&7狀態: %status%'
+company_info_founder: '&7創辦人: &f%founder%'
+company_info_ceo: '&7CEO: &f%ceo%'
+company_info_capital: '&7註冊資本: &e$%capital%'
+company_info_shares: '&7股份: 核定 &f%authorized% &7| 已發行 &f%issued% &7| 庫藏 &f%treasury%'
+company_info_share_price: '&7每股面額: &e$%price%'
+company_info_board: '&7董事會: &f%count% 人'
+company_info_treasury: '&7金庫餘額: &e$%balance%'
+
+# --- 列表 ---
+company_list_header: '&b&l=== 公司列表 (%count% 間) ==='
+company_list_line: '&e%company_id% &7- %company_name% %status%'
+company_list_empty: '&7目前沒有任何公司。'
+
+# --- 董事會 ---
+company_board_header: '&b=== %company_name% (%company_id%) 董事會 ==='
+company_board_line: '&7- &f%player% &7(%role%)'
+company_board_invited: '&a成功邀請 &e%player% &a加入 %company_name% 的董事會！'
+company_board_invite_notify: '&a你已被邀請加入 &e%company_name% &a的董事會！'
+company_board_invite_fail: '&c邀請 &e%player% &c失敗 (可能已是成員或董事會已滿)。'
+company_board_kicked: '&a成功將 &e%player% &a從 %company_name% 的董事會移除。'
+company_board_kick_self: '&c你不能移除自己！請先使用 /bdcomp board promote <玩家> 來轉讓 CEO 職位。'
+company_board_kick_fail: '&c移除 &e%player% &c失敗 (可能不是成員、是創辦人或是 CEO)。'
+company_board_promoted: '&a已將 %company_name% 的 CEO 職位轉讓給 &e%player%&a。'
+company_board_promote_fail: '&c升職 &e%player% &c失敗。'
+
+# --- 金庫 ---
+company_treasury_info: '&b%company_name% 金庫餘額: &e$%treasury_balance%'
+company_treasury_deposited: '&a成功向 %company_name% 金庫存入 &e$%amount%&a。目前餘額: $%treasury_balance%'
+company_treasury_deposit_fail: '&c存款失敗: 你的餘額不足。'
+company_treasury_withdrawn: '&a成功從 %company_name% 金庫提取 &e$%amount%&a。目前餘額: $%treasury_balance%'
+company_treasury_withdraw_fail: '&c提款失敗: 金庫餘額不足。'
+company_treasury_withdraw_vote: '&e提取金額 $%amount% 超過限制，已為 %company_name% 自動發起投票提案。'
+
+# --- 庫藏股分配 ---
+company_shares_given: '&a成功從庫藏股分配 &e%amount% 股 &a給 &e%player%&a。'
+company_shares_received: '&a你收到了 %company_name% 的 &e%amount% 股&a庫藏股分配。'
+company_shares_give_fail: '&c分配失敗: 庫藏股不足 (需 %amount% 股)。'
+
+# --- 轉讓 ---
+company_transfer_no_company: '&c你不屬於任何私人公司，無法進行轉讓。'
+company_transfer_self: '&c你不能將股份轉讓給自己。'
+company_transfer_success: '&a成功將 %company_name% 的 &e%shares% 股 &a轉讓給 &e%player%&a。'
+company_transfer_received: '&a你從 &e%sender% &a收到了 %company_name% 的 &e%shares% 股&a。'
+company_transfer_fail: '&c轉讓失敗: 你的持股不足 (需 %shares% 股)。'
+
+# --- IPO ---
+company_ipo_not_private: '&c只有私人公司才能申請上市。'
+company_ipo_too_early: '&c公司成立不足 %min_days% 天 (目前 %current_days% 天)，無法申請上市。'
+company_ipo_low_capital: '&c資本額未達 IPO 最低要求 ($%min_capital%)，目前 $%current_capital%。'
+company_ipo_low_board: '&c董事會人數不足，至少需要 %min_board% 位 (目前 %current_board% 位)。'
+company_ipo_invalid_shares: '&c公開流通比例必須在 %min_percent%%~%max_percent%% 之間 (目前 %current_percent%%)。'
+company_ipo_not_enough_shares: '&c庫藏股不足，無法釋出所需的 IPO 股數。'
+company_ipo_vote_started: '&a已為 %company_name% 發起 IPO 提案！IPO 價格: $%ipo_price%，釋出 %ipo_shares%
+  股 (%float_percent%%)。等待董事會投票。'
+
+# --- 投票 ---
+company_vote_already_active: '&c已有進行中的投票，請等待完成。'
+company_vote_start_fail: '&c發起投票失敗。'
+company_vote_cast: '&a投票成功！你投了 %vote_choice%。'
+company_vote_status: '&7[投票狀態] 類型: %vote_type% | 贊成: &a%approve_weight% &7| 反對: &c%reject_weight%
+  &7| 總票: %total_voted% | 剩餘: %time_remaining%'
+company_no_active_vote: '&c目前沒有進行中的投票。'
+company_vote_already_voted: '&c你已經投過票了。'
+company_not_board_member: '&c只有董事會成員才能投票。'
+company_vote_no_shares: '&c你沒有持股，無法投票。'
+
+# --- 股息 ---
+company_dividend_insufficient: '&c金庫餘額不足以支付所有股息。需要 $%total_cost%，目前 $%treasury_balance%。'
+company_dividend_preview: '&e[股息預覽] %company_name%: 每股 $%amount_per_share%，共 %total_shares%
+  股，合計 $%total_cost%'
+company_dividend_success: '&a成功發放 %company_name% 股息！每股 $%amount_per_share%，共支出 $%total_cost%。'
+company_dividend_fail: '&c股息發放失敗。'
+
+# --- 解散 ---
+company_already_dissolved: '&c此公司已經解散。'
+company_dissolve_vote_started: '&a已為 %company_name% 發起公司解散提案！等待董事會投票。'
+
+# --- 管理員指令 ---
+company_admin_setceo: '&a已將 %company_id% 的 CEO 更換為 &e%player%&a。'
+company_admin_invalid_status: '&c無效的公司狀態: %status%。有效狀態: PRIVATE, PUBLIC, SUSPENDED,
+  DISSOLVED'
+company_admin_setstatus: '&a已將 %company_id% 的狀態更改為 %status%。'
+company_admin_deleted: '&c已刪除公司 %company_id% (%company_name%)。'
+
+# ============================
+# 購買限額
+# ============================
+purchase_limit_exceeded: '&c購買限額不足！你本週期剩餘可購買額度為 &e$%remaining%&c，將於 &e%reset_time%
+  &c後重置。'
+
+# ============================
+# Tab 補全提示 (公司)
+# ============================
+tab_complete:
+  risk: <風險(0-5)>
+  total_shares: <總發行量>
+  price: <價格>
+  capital: <資本額>
+  shares: <股數>
+  shares_amount: <股數>
+  price_per_share: <每股價格>
+  amount: <金額>
+  company_id: <公司代碼>
+  company_name: <公司名稱>
+  display_name: <顯示名稱>
+permission:
+  manage_members: 管理成員
+  manage_roles: 管理身分組
+  treasury_deposit: 金庫存款
+  treasury_withdraw: 金庫提款
+  treasury_view: 查看金庫
+  vote: 投票
+  distribute_shares: 分配庫藏股
+  initiate_proposals: 發起提案
+  transfer_shares: 轉讓股份
+  dividend: 發放股息
+  view_members: 查看成員
+role_usage_header: '&b=== 身分組管理 ==='
+role_usage_list: '&e/bdcomp role list &7- 查看所有身分組'
+role_usage_create: '&e/bdcomp role create <名稱> <顯示名稱> [優先級] &7- 創建自訂身分組'
+role_usage_delete: '&e/bdcomp role delete <名稱> &7- 刪除自訂身分組'
+role_usage_edit: '&e/bdcomp role edit <名稱> <add|remove> <權限> &7- 編輯權限'
+role_usage_assign: '&e/bdcomp role assign <玩家> <身分組> &7- 指派身分組'
+role_usage_info: '&e/bdcomp role info <名稱> &7- 查看身分組詳情'
+role_list_header: '&b=== %company_name% 身分組列表 ==='
+role_created: '&a成功創建身分組 &e%role_name% &a(優先級: %priority%)。'
+role_create_fail: '&c創建身分組失敗。'
+role_deleted: '&a成功刪除身分組 &e%role_name%&a。成員已移至股東。'
+role_not_found: '&c找不到身分組: &e%role_name%'
+role_already_exists: '&c身分組 &e%role_name% &c已存在。'
+role_cannot_delete_default: '&c無法刪除系統預設身分組。'
+role_cannot_edit_founder: '&c創辦人身分組不可編輯。'
+role_priority_too_high: '&c優先級不能超過 89。'
+role_permission_added: '&a已為 &e%role_name% &a新增權限: &f%permission%'
+role_permission_removed: '&a已從 &e%role_name% &a移除權限: &f%permission%'
+role_invalid_permission: '&c無效的權限名稱: &e%permission%'
+role_displayname_changed: '&a已將 &e%role_name% &a的顯示名稱更改為: &f%new_name%'
+role_priority_changed: '&a已將 &e%role_name% &a的優先級更改為: &f%priority%'
+role_assigned: '&a已將 &e%player% &a指派到身分組: &f%role_name%'
+role_assigned_notify: '&a你在 &e%company_name% &a的身分已變更為: &f%role_name%'
+role_assign_fail: '&c指派身分組失敗。'
+role_assign_priority_error: '&c你無法指派優先級等於或高於自己的身分組。'
+role_info_header: '&b=== 身分組: %role_name% &b(%internal_name%) ==='
+role_info_priority: '&7優先級: &f%priority%'
+role_info_type: '&7類型: &f%type%'
+role_info_type_system: 系統預設
+role_info_type_custom: 自訂
+role_no_permissions: 無
+role_info_permissions: '&7權限列表:'
+role_info_members: '&7成員:'
+role_display:
+  founder: 創辦人
+  ceo: 執行長
+  vice_ceo: 副執行長
+  director: 董事
+  manager: 經理
+  employee: 員工
+  shareholder: 股東
+limitorder_disabled: '&c限價單功能目前未啟用。'
+limitorder_invalid_params: '&c目標價格和數量必須大於 0。'
+limitorder_created: '&a成功建立限價單！類型: &e%type% &a股票: &e%stock_name% &a數量: &e%amount%
+  &a目標價格: &e$%price%'
+limitorder_create_fail: '&c無法建立限價單。可能已達上限。'
+limitorder_cancelled: '&a已取消限價單 #%id%。'
+limitorder_cancel_fail: '&c無法取消此限價單。可能不存在或已執行。'
+limitorder_query_fail: '&c查詢限價單時發生錯誤。'
+limitorder_type_buy: 買入
+limitorder_type_sell: 賣出
+stock_bankruptcy: '&c[破產公告] &e%stock_name% &c(&e%stock_id%&c) 已宣布破產，股票已從交易所下架。'
+company_not_active: '&c此公司已不在營運中，無法執行此操作。'
+company_ipo_fail: '&c無法進行 IPO，公司股數配置異常。'
+company_dividend_no_shareholders: '&c此公司目前沒有任何股東，無法發放股息。'
+audit:
+  disabled: '&c審計日誌功能未啟用。請在 config.yml 中設置 audit_log.enabled: true'
+  usage: '&c用法: /stock audit <recent|player|stock> [過濾] [數量]'
+  specify_player: '&c請指定玩家名稱。'
+  specify_stock: '&c請指定股票ID。'
+  unknown_query: '&c未知查詢類型。使用: recent, player, stock'
+  no_records: '&7沒有找到任何審計記錄。'
+  header: '&6=== 審計日誌 (%count% 條記錄) ==='
+limitorder_executed: '&a[限價單] 你的 %type% 訂單已成交！股票: &e%stock_name% &a數量: &e%amount%
+  &a價格: &e$%price%'
+company_employee_hired: '&a成功聘用 &e%player% &a為 %company_name% 的員工！'
+company_employee_hire_notify: '&a你已被聘用為 &e%company_name% &a的員工！'
+company_employee_hire_fail: '&c聘用 &e%player% &c失敗 (可能已是成員或公司人數已滿)。'
+role_list_priority_label: 優先級
+role_list_click_hint: '&e點擊查看詳細權限'
+role_target_not_member: '&c玩家 &e%player% &c不是公司成員。'
+role_info_toggle_hint: '&e點擊切換此權限'
+role_usage_edit_add: '  &e/bdcomp role edit <名稱> add <權限> &7- 新增權限'
+role_usage_edit_remove: '  &e/bdcomp role edit <名稱> remove <權限> &7- 移除權限'
+role_usage_edit_displayname: '  &e/bdcomp role edit <名稱> displayname <新名稱> &7- 更改顯示名稱'
+role_usage_edit_priority: '  &e/bdcomp role edit <名稱> priority <數字> &7- 更改優先級'
+role_list_perm_count: '&7權限: &f%count%&7/&f%total%'
+role_edit_gui_title: '&d編輯身分組: %role_display_name%'
+role_edit_perm_enabled: 已啟用
+role_edit_perm_disabled: 已停用
+role_edit_click_toggle: '&e點擊切換此權限'
+role_edit_no_permission: 你沒有權限編輯此身分組
+role_edit_perm_count: '權限: %count%/%total%'
+role_edit_no_members: 目前沒有成員
+role_edit_back: 返回身分組列表
+permission_desc:
+  manage_members: 邀請/聘用/踢除公司成員
+  manage_roles: 建立/編輯/刪除/指派身分組
+  treasury_deposit: 存入資金到公司金庫
+  treasury_withdraw: 從公司金庫提款
+  treasury_view: 查看公司金庫餘額
+  vote: 對公司提案進行投票
+  distribute_shares: 從庫藏股分配股份給成員
+  initiate_proposals: 發起 IPO/解散等重大提案
+  transfer_shares: 私下轉讓持有的股份
+  dividend: 發放股息給所有股東
+  view_members: 查看公司成員列表
+papi:
+  no_company: 無
+  'true': §a是
+  'false': §c否
+  company_status:
+    private: §e私人
+    public: §a上市
+    pre_ipo: §6準備上市
+    suspended: §c暫停
+    dissolved: §8已解散
+company_invalid_id: '&c公司代碼只能使用英文大寫字母 (A-Z)，不可包含數字、空格或其他文字。'
+admin_invalid_number: '&c請輸入有效的正數。'
+admin_usage:
+  header: '&b&l=== 公司管理員指令 ==='
+  info_line: '&e/bdcomp admin info <公司ID> &7— 查看公司詳細資訊'
+  setceo_line: '&e/bdcomp admin setceo <公司ID> <玩家> &7— 更換 CEO'
+  setname_line: '&e/bdcomp admin setname <公司ID> <新名稱> &7— 更改公司名稱'
+  setstatus_line: '&c/bdcomp admin setstatus <公司ID> <狀態> &7— ⚠ 更改公司狀態'
+  settreasury_line: '&c/bdcomp admin settreasury <公司ID> <金額> &7— ⚠ 設定金庫餘額'
+  setshares_line: '&c/bdcomp admin setshares <公司ID> <玩家> <股數> &7— ⚠ 設定持股數'
+  addmember_line: '&e/bdcomp admin addmember <公司ID> <玩家> &7— 強制添加成員'
+  removemember_line: '&c/bdcomp admin removemember <公司ID> <玩家> &7— ⚠ 強制移除成員'
+  delete_line: '&c/bdcomp admin delete <公司ID> &7— ⚠ 永久刪除公司'
+  dissolve_line: '&c/bdcomp admin dissolve <公司ID> &7— ⚠ 強制解散公司'
+  danger_hint: '&8&o(標記 ⚠ 的操作為危險操作，需二次確認)'
+  setceo: '&c用法: /bdcomp admin setceo <公司ID> <玩家名稱>'
+  setname: '&c用法: /bdcomp admin setname <公司ID> <新名稱>'
+  setstatus: '&c用法: /bdcomp admin setstatus <公司ID> <PRIVATE|PUBLIC|SUSPENDED|DISSOLVED>'
+  settreasury: '&c用法: /bdcomp admin settreasury <公司ID> <金額>'
+  setshares: '&c用法: /bdcomp admin setshares <公司ID> <玩家名稱> <股數>'
+  addmember: '&c用法: /bdcomp admin addmember <公司ID> <玩家名稱>'
+  removemember: '&c用法: /bdcomp admin removemember <公司ID> <玩家名稱>'
+admin_setname:
+  success: '&a已將 &e%company_id% &a的公司名稱從 &7%old_name% &a更改為 &e%new_name%&a。'
+admin_settreasury:
+  success: '&a已將 &e%company_id% &a的金庫餘額從 &7$%old_amount% &a設定為 &e$%new_amount%&a。'
+admin_setshares:
+  success: '&a已將 &e%player% &a在 &e%company_id% &a的持股從 &7%old_shares% &a設定為 &e%new_shares%&a。'
+admin_addmember:
+  success: '&a已將 &e%player% &a強制添加到公司 &e%company_id%&a (身分: 股東)。'
+  already_member: '&c玩家 &e%player% &c已經是公司成員。'
+admin_removemember:
+  success: '&a已將 &e%player% &a從公司 &e%company_id% &a移除 (歸還 %shares% 股到庫藏)。'
+admin_dissolve:
+  success: '&a已強制解散公司 &e%company_id% &a(&e%company_name%&a)。資產已按持股比例退還。'
+admin_info:
+  header: '&b&l=== 公司詳情: %company_id% ==='
+  name: '&7名稱: &f%value%'
+  status: '&7狀態: &f%value%'
+  founder: '&7創辦人: &f%value%'
+  ceo: '&7CEO: &f%value%'
+  members: '&7成員數: &f%value%'
+  treasury: '&7金庫餘額: &a$%value%'
+  capital: '&7註冊資本: &f$%value%'
+  authorized_shares: '&7核定股數: &f%value%'
+  issued_shares: '&7已發行: &f%value%'
+  treasury_shares: '&7庫藏股: &f%value%'
+  stock_id: '&7上市股票ID: &e%value%'
+admin_confirm:
+  warning_header: '&c&l⚠ 危險操作警告 ⚠'
+  timeout: '&7此操作將在 &e%seconds% 秒&7後自動取消。'
+  executed: '&a操作已確認執行。'
+  cancelled: '&7操作已取消。'
+  no_pending: '&c目前沒有待確認的操作。'
+  delete_warning: '&c即將永久刪除公司 &e%company_id% &c(&e%company_name%&c)！成員數: &e%member_count%&c，金庫:
+    &e$%treasury%&c。此操作不可撤銷！'
+  dissolve_warning: '&c即將強制解散公司 &e%company_id% &c(&e%company_name%&c)！金庫 &e$%treasury%
+    &c將按持股比例退還。此操作不可撤銷！'
+  setstatus_warning: '&c即將將 &e%company_id% &c的狀態從 &e%old_status% &c更改為 &e%new_status%&c。狀態變更可能影響交易和上市！'
+  settreasury_warning: '&c即將將 &e%company_id% &c的金庫從 &e$%old_amount% &c設定為 &e$%new_amount%&c。此操作會直接覆蓋餘額！'
+  setshares_warning: '&c即將將 &e%player% &c在 &e%company_id% &c的持股從 &e%old_shares% &c設定為
+    &e%new_shares%&c。差額將自動調整庫藏股！'
+  removemember_warning: '&c即將從 &e%company_id% &c移除成員 &e%player% &c(身分: %role%，持股:
+    %shares%)。持股將歸還庫藏！'
+settings:
+  header: '&b&l=== 個人設定 ==='
+  primary_current: '&7主要公司: &e%company_id% &7(&f%company_name%&7)'
+  primary_not_set: '&7主要公司: &8未設定 (將顯示第一家加入的公司)'
+  primary_invalid: '&7主要公司: &c%company_id% (已失效，將自動使用第一家公司)'
+  primary_set: '&a已將主要公司設定為 &e%company_id% &a(&f%company_name%&a)。佔位符將顯示此公司資訊。'
+  primary_cleared: '&a已清除主要公司設定。佔位符將顯示第一家加入的公司。'
+  primary_not_member: '&c你不是公司 &e%company_id% &c的成員。'
+  primary_inactive: '&c公司 &e%company_id% &c已不再活躍。'
+  usage_primary: '&e/bdcomp settings primary <公司代碼> &7— 設定主要公司 (用於佔位符顯示)'
+  usage_primary_clear: '&e/bdcomp settings primary clear &7— 清除主要公司設定'
+settings_gui:
+  title: '&1&l個人設定'
+  category_company: '&a&l公司設定'
+  category_company_desc: '&7設定主要公司、佔位符顯示等'
+  category_notification: '&e&l通知設定'
+  category_display: '&b&l顯示設定'
+  coming_soon: '&8敬請期待...'
+  current_primary: '目前主要公司: &e%company_id% &7(%company_name%)'
+  primary_auto: 自動選擇第一家公司
+  click_to_configure: '&e點擊進入設定'
+  back: 返回公司列表
+  company_title: '&1&l公司設定 — 主要公司'
+  company_info_title: '&b選擇主要公司'
+  company_info_desc1: '&7點擊公司將其設為主要公司。'
+  company_info_desc2: '&7佔位符 &e%bdstock_my_company_*% &7將顯示該公司資訊。'
+  company_role: 身分
+  company_status: 狀態
+  is_primary: ★ 目前為主要公司
+  click_set_primary: 點擊設為主要公司
+  clear_primary: 清除主要公司設定
+  clear_primary_desc: '&7清除後將自動選擇第一家公司。'
+  back_to_settings: 返回設定
