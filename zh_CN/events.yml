@@ -1,43 +1,43 @@
 # =================================================================
-# BDStock 隨機事件設定檔
+# BDStock 随机事件设定档
 # =================================================================
-# 為每支股票定義專屬的隨機事件。
-# 當事件被觸發時，股價會根據 multiplier 範圍進行調整。
+# 为每支股票定义专属的随机事件。
+# 当事件被触发时，股价会根据 multiplier 范围进行调整。
 #
 # 格式:
 #   股票ID:
-#     positive:    (利多事件 - 股價上漲)
-#       - message: "廣播訊息 (支援 %stock_name%, %old_price%, %new_price%)"
-#         min_multiplier: 1.05   (最小價格倍率，1.05 = 漲 5%)
-#         max_multiplier: 1.15   (最大價格倍率，1.15 = 漲 15%)
-#     negative:    (利空事件 - 股價下跌)
-#       - message: "廣播訊息"
-#         min_multiplier: 0.85   (最小價格倍率，0.85 = 跌 15%)
-#         max_multiplier: 0.95   (最大價格倍率，0.95 = 跌 5%)
+#     positive:    (利多事件 - 股价上涨)
+#       - message: "广播讯息 (支援 %stock_name%, %old_price%, %new_price%)"
+#         min_multiplier: 1.05   (最小价格倍率，1.05 = 涨 5%)
+#         max_multiplier: 1.15   (最大价格倍率，1.15 = 涨 15%)
+#     negative:    (利空事件 - 股价下跌)
+#       - message: "广播讯息"
+#         min_multiplier: 0.85   (最小价格倍率，0.85 = 跌 15%)
+#         max_multiplier: 0.95   (最大价格倍率，0.95 = 跌 5%)
 #
 # 提示:
-#   - multiplier > 1.0 表示上漲, < 1.0 表示下跌
+#   - multiplier > 1.0 表示上涨, < 1.0 表示下跌
 #   - 利多事件的 multiplier 通常 > 1.0
 #   - 利空事件的 multiplier 通常 < 1.0
-#   - 每次觸發會從該股票的事件列表中隨機選一個
-#   - 可為每支股票設定多個不同的事件
+#   - 每次触发会从该股票的事件列表中随机选一个
+#   - 可为每支股票设定多个不同的事件
 #
-# 修改後使用 /stock reload 重新載入
+# 修改后使用 /stock reload 重新载入
 # =================================================================
 
-# 範例股票事件 (請替換為你的股票ID):
- MYCOMP:
-   positive:
-     - message: "&a[利多] %stock_name% 獲得大額訂單！股價從 $%old_price% 漲至 $%new_price%"
-       min_multiplier: 1.05
-       max_multiplier: 1.20
-     - message: "&a[利多] %stock_name% 發布亮眼財報！股價從 $%old_price% 漲至 $%new_price%"
-       min_multiplier: 1.03
-       max_multiplier: 1.10
-   negative:
-     - message: "&c[利空] %stock_name% 被爆出品質問題！股價從 $%old_price% 跌至 $%new_price%"
-       min_multiplier: 0.80
-       max_multiplier: 0.95
-     - message: "&c[利空] %stock_name% 主要客戶轉單！股價從 $%old_price% 跌至 $%new_price%"
-       min_multiplier: 0.85
-       max_multiplier: 0.97
+# 范例股票事件 (请替换为你的股票ID):
+# TSMC:
+#   positive:
+#     - message: "&a[利多] %stock_name% 获得大额订单！股价从 $%old_price% 涨至 $%new_price%"
+#       min_multiplier: 1.05
+#       max_multiplier: 1.20
+#     - message: "&a[利多] %stock_name% 发布亮眼财报！股价从 $%old_price% 涨至 $%new_price%"
+#       min_multiplier: 1.03
+#       max_multiplier: 1.10
+#   negative:
+#     - message: "&c[利空] %stock_name% 被爆出品质问题！股价从 $%old_price% 跌至 $%new_price%"
+#       min_multiplier: 0.80
+#       max_multiplier: 0.95
+#     - message: "&c[利空] %stock_name% 主要客户转单！股价从 $%old_price% 跌至 $%new_price%"
+#       min_multiplier: 0.85
+#       max_multiplier: 0.97
