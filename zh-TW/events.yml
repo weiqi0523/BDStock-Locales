@@ -26,18 +26,18 @@
 # =================================================================
 
 # 範例股票事件 (請替換為你的股票ID):
- MYCOMP:
-   positive:
-     - message: "&a[利多] %stock_name% 獲得大額訂單！股價從 $%old_price% 漲至 $%new_price%"
-       min_multiplier: 1.05
-       max_multiplier: 1.20
-     - message: "&a[利多] %stock_name% 發布亮眼財報！股價從 $%old_price% 漲至 $%new_price%"
-       min_multiplier: 1.03
-       max_multiplier: 1.10
-   negative:
-     - message: "&c[利空] %stock_name% 被爆出品質問題！股價從 $%old_price% 跌至 $%new_price%"
-       min_multiplier: 0.80
-       max_multiplier: 0.95
-     - message: "&c[利空] %stock_name% 主要客戶轉單！股價從 $%old_price% 跌至 $%new_price%"
-       min_multiplier: 0.85
-       max_multiplier: 0.97
+# TSMC:
+#   positive:
+#     - message: "&a[利多] %stock_name% 獲得大額訂單！股價從 $%old_price% 漲至 $%new_price%"
+#       min_multiplier: 1.05
+#       max_multiplier: 1.20
+#     - message: "&a[利多] %stock_name% 發布亮眼財報！股價從 $%old_price% 漲至 $%new_price%"
+#       min_multiplier: 1.03
+#       max_multiplier: 1.10
+#   negative:
+#     - message: "&c[利空] %stock_name% 被爆出品質問題！股價從 $%old_price% 跌至 $%new_price%"
+#       min_multiplier: 0.80
+#       max_multiplier: 0.95
+#     - message: "&c[利空] %stock_name% 主要客戶轉單！股價從 $%old_price% 跌至 $%new_price%"
+#       min_multiplier: 0.85
+#       max_multiplier: 0.97
