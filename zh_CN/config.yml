@@ -5,6 +5,10 @@
 # 修改后，请在游戏中输入 /stock reload 来套用新的设定。
 # YAML 格式对缩排非常严格，请务必使用空格而非 Tab 键，并保持正确的层级结构。
 
+# Language / 语言设定
+# Available: zh_TW, en_US
+language: "zh_TW"
+
 # 配置版本号 (请勿手动修改！插件会自动管理此值)
 config-version: 4
 
@@ -16,15 +20,15 @@ storage:
   # sqlite - 使用 SQLite 资料库 (推荐，免设定，适合大部分伺服器)
   # mysql  - 使用 MySQL 资料库 (适合多伺服器共享资料)
   # 旧版 YAML 资料会在首次启动时自动迁移。
-  type: sqlite
-  
+  type: "sqlite"
+
   # MySQL 连线设定 (仅在 type 为 "mysql" 时生效)
   mysql:
-    host: localhost
+    host: "localhost"
     port: 3306
-    database: bdstock
-    username: root
-    password: ''
+    database: "bdstock"
+    username: "root"
+    password: ""
     # 连线池大小 (建议 5-15)
     pool_size: 10
 
@@ -35,21 +39,21 @@ market_hours:
   # 总开关。设为 true 来启用此功能。
   # 若为 false，股市将 24/7 全天候开放，不受下方时间表限制。
   enabled: true
-  
+
   # 时区设定。伺服器将根据此时区来判断开市与闭市时间。
   # 请务必使用你伺服器所在地的标准时区ID (例如: Asia/Taipei, America/New_York, Europe/London)。
-  timezone: Asia/Taipei
-  
+  timezone: "Asia/Taipei"
+
   # 设定每週的开市时间。格式为 "HH:mm-HH:mm" (24小时制)。
   # 支援 "00:00-23:59" 表示全天开放。
   # 注意: 请使用 23:59 而非 24:00，后者虽然也被自动处理，但不推荐。
   # 如果想禁用某一天，请将其值设为 false (例如: MONDAY: false)
   schedule:
-    MONDAY: 09:00-13:30
-    TUESDAY: 09:00-13:30
-    WEDNESDAY: 09:00-13:30
-    THURSDAY: 09:00-13:30
-    FRIDAY: 09:00-13:30
+    MONDAY: "09:00-13:30"
+    TUESDAY: "09:00-13:30"
+    WEDNESDAY: "09:00-13:30"
+    THURSDAY: "09:00-13:30"
+    FRIDAY: "09:00-13:30"
     SATURDAY: false
     SUNDAY: false
 
@@ -59,7 +63,7 @@ market_hours:
 
 # 股票价格更新频率 (单位: tick, 20 ticks = 1秒)
 # 例如: 1200 ticks = 60秒，即每分钟更新一次价格。
-update_interval: 60
+update_interval: 1200
 
 # 交易手续费 (百分比)。设为 0 来关闭。
 # 买入和卖出时都会收取。
@@ -75,18 +79,18 @@ transaction_fee: 0.5
 volume_impact:
   # 总开关。
   enabled: true
-  
+
   # 基础影响倍率。数值越大，每笔交易对价格的影响越大。
   base_multiplier: 0.5
-  
+
   # 幂次曲线。数值越高，大量交易与小量交易的影响差异越大。
   # 1.0 = 线性，1.5 = 大量交易影响更显着 (推荐)，2.0 = 非常显着。
   power: 1.5
-  
+
   # 单笔交易的最大价格影响 (百分比)。
   # 例如: 5.0 表示单笔交易最多让价格波动 5%。
   max_impact_percent: 5.0
-  
+
   # 触发波动的最低交易门槛 (佔总发行量的百分比)。
   # 低于此比例的交易不会引起价格波动。
   min_threshold_percent: 0.1
@@ -99,32 +103,32 @@ volume_impact:
 anti_exploit:
   # 总开关。
   enabled: true
-  
+
   # 同一股票上，反向交易的冷却时间 (秒)。
   # 例如: 买入后 60 秒内卖出同一支股票会触发冷却。
   trade_cooldown_seconds: 60
-  
+
   # 冷却期间是否完全阻挡交易。
   # true  = 完全阻挡，玩家必须等待冷却结束
   # false = 允许交易但施加收益惩罚
   block_during_cooldown: false
-  
+
   # 冷却期间的惩罚百分比 (仅在 block_during_cooldown 为 false 时生效)。
   # 例如: 50.0 表示冷却期间卖出收益被扣减最多 50% (随时间衰减)。
   cooldown_penalty_percent: 50.0
-  
+
   # 价格影响衰减因子 (0.0-1.0)。
   # 每个更新週期，累积的价格影响会乘以此因子。
   # 越接近 1.0 衰减越慢，越接近 0.0 衰减越快。
   impact_decay_factor: 0.85
-  
+
   # 是否启用快速交易模式侦测。
   # 侦测到异常交易模式时会通知管理员。
   pattern_detection: true
-  
+
   # 模式侦测的时间窗口 (秒)。
   pattern_window_seconds: 300
-  
+
   # 触发警报的交易量门槛 (佔总发行量的百分比)。
   # 玩家在时间窗口内的买+卖总量超过此比例时触发。
   pattern_threshold_percent: 5.0
@@ -144,35 +148,35 @@ player_stocks:
   # 总开关。是否允许玩家自行创建股票。
   # 玩家需要 bdstock.player.create 权限。
   enabled: true
-  
+
   # 创建股票的费用。
   creation_cost: 10000.0
-  
+
   # 每位玩家可创建的最大股票数量。
   max_per_player: 3
-  
+
   # 玩家创建股票时的预设风险等级 (0-5)。
   default_risk: 3
-  
+
   # 初始价格限制。
   min_price: 1.0
   max_price: 10000.0
-  
+
   # 发行量限制。
   min_shares: 1000
   max_shares: 1000000
-  
+
   # IPO 锁定期 (小时)。创建后的这段时间内，拥有者不能交易自己的股票。
   ipo_lock_hours: 24
-  
+
   # 拥有者是否可以购买自己创建的股票。
   # 建议设为 false 以防止操纵股价。
   owner_can_buy_own: false
-  
+
   # 拥有者每日可卖出的最大比例 (佔总发行量的百分比)。
   # 防止拥有者大量抛售操纵市场。
   owner_daily_sell_limit_percent: 10.0
-  
+
   # 最低上市时间 (小时)。在此时间内，拥有者不能请求删除股票。
   min_listing_hours: 72
 
@@ -182,23 +186,23 @@ player_stocks:
 # 记录所有交易和管理员操作，方便后台监控。
 audit_log:
   # 总开关。预设关闭以减少资料库开销。
-  enabled: true
-  
+  enabled: false
+
   # 记录玩家交易 (买入/卖出)
   log_transactions: true
-  
+
   # 记录管理员操作 (创建/删除/设定价格等)
   log_admin_actions: true
-  
+
   # 记录每次价格更新 (非常大量，预设关闭)
   log_price_changes: false
-  
+
   # 记录系统事件 (破产/重新上市/股息等)
   log_events: true
-  
+
   # 记录反作弊触发事件
   log_anti_exploit: true
-  
+
   # 自动清理超过 N 天的日誌 (0 = 永不清理)
   retention_days: 30
 
@@ -209,17 +213,17 @@ audit_log:
 backup:
   # 总开关。
   enabled: true
-  
+
   # 备份间隔 (小时)。
   interval_hours: 24
-  
+
   # 最大保留备份数量。超过此数量时删除最旧的备份。
   max_backups: 7
-  
+
   # 是否备份资料库档案。
   backup_database: true
-  
-  # 是否备份设定档 (config.yml, lang.yml, guis.yml)。
+
+  # 是否备份设定档 (config.yml, guis.yml, lang/*.yml)。
   backup_configs: true
 
 # =================================================================
@@ -230,10 +234,10 @@ backup:
 circuit_breaker:
   # 总开关。
   enabled: false
-  
+
   # 触发熔断的价格变动阈值 (百分比)。
   threshold_percent: 15.0
-  
+
   # 熔断暂停时间 (分钟)。
   halt_duration_minutes: 5
 
@@ -244,10 +248,10 @@ circuit_breaker:
 dividends:
   # 总开关。
   enabled: false
-  
+
   # 派息间隔 (分钟)。
   payout_interval_minutes: 60
-  
+
   # 预设股息收益率 (每次派息时，每股支付的金额 = 股价 × 此百分比)。
   default_yield_percent: 0.0
 
@@ -257,7 +261,7 @@ dividends:
 # 管理员可以使用 /stock split <ID> <比例> 来进行股票分割。
 # 分割会使股价等比例下降，同时所有持股者的股数等比例增加。
 stock_splits:
-  enabled: true
+  enabled: false
 
 # =================================================================
 # 限价单
@@ -265,11 +269,11 @@ stock_splits:
 # 玩家可以设定目标价格的买入/卖出订单，当股价到达目标时自动执行。
 limit_orders:
   # 总开关。
-  enabled: true
-  
+  enabled: false
+
   # 每位玩家最多可设定的限价单数量。
   max_per_player: 5
-  
+
   # 限价单过期时间 (小时)。过期后自动取消。
   expiry_hours: 24
 
@@ -279,12 +283,12 @@ limit_orders:
 random_events:
   # 总开关。是否启用随机事件系统。
   enabled: true
-  
+
   # 触发检查的间隔 (单位: tick)。
-  # 每隔这麽久，系统就会根据下方的 chance 机率进行一次判定，看是否要触发事件。
+  # 每隔这么久，系统就会根据下方的 chance 机率进行一次判定，看是否要触发事件。
   # 预设 72000 ticks = 3600 秒 = 1 小时。
   interval: 72000
-  
+
   # 每次进行判定时，实际触发事件的机率 (0.0 到 1.0 之间)。
   # 预设 0.05 代表有 5% 的机率触发。
   chance: 0.05
@@ -295,7 +299,7 @@ random_events:
 features:
   # 是否启用破产机制。关闭后，股价不会跌至 0。
   bankruptcy: true
-  
+
   # 是否启用排行榜功能。
   leaderboard: true
 
@@ -304,39 +308,39 @@ features:
 # =================================================================
 discord_webhook:
   enabled: false
-  url: YOUR_WEBHOOK_URL_HERE
-  footer: BDStock 市场观察家
-  
+  url: "YOUR_WEBHOOK_URL_HERE"
+  footer: "BDStock 市场观察家"
+
   event_rise:
-    title: 📈 股市利多消息！
+    title: "📈 股市利多消息！"
     description: |
       受市场利多消息影响，**%stock_name%** 的股价大幅上涨！
       旧价格: `$ %old_price%`
       新价格: `$ %new_price%`
       **涨幅: `+$ %change_amount% (+%change_percent%%)`**
-    color: '#2ECC71'
-  
+    color: "#2ECC71"
+
   event_fall:
-    title: 📉 股市利空消息！
+    title: "📉 股市利空消息！"
     description: |
       受市场利空消息影响，**%stock_name%** 的股价应声下跌！
       旧价格: `$ %old_price%`
       新价格: `$ %new_price%`
       **跌幅: `-$ %change_amount% (-%change_percent%%)`**
-    color: '#E74C3C'
-  
+    color: "#E74C3C"
+
   bankruptcy:
-    title: '🚨 破产警报: %stock_name%'
-    description: 该公司已正式宣布破产并从市场下市。所有玩家持股均已强制清算为零。
-    color: '#992D22'
-  
+    title: "🚨 破产警报: %stock_name%"
+    description: "该公司已正式宣布破产并从市场下市。所有玩家持股均已强制清算为零。"
+    color: "#992D22"
+
   relist:
-    title: '✨ 重新上市: %stock_name%'
-    description: 在成功进行业务重组后，该公司已重新上市，现在可以再次进行交易。
-    color: '#3498DB'
-  
+    title: "✨ 重新上市: %stock_name%"
+    description: "在成功进行业务重组后，该公司已重新上市，现在可以再次进行交易。"
+    color: "#3498DB"
+
   new_stock:
-    title: '🔔 新股上市: %stock_name% (%stock_id%)'
+    title: "🔔 新股上市: %stock_name% (%stock_id%)"
     description: |
       一支全新的股票已加入市场，准备好迎接新的投资机会！
 
@@ -344,10 +348,10 @@ discord_webhook:
       > **股票代号:** `%stock_id%`
       > **初始价格:** `$ %initial_price%`
       > **总发行量:** `%total_shares% 股`
-    color: '#F1C40F'
-  
+    color: "#F1C40F"
+
   company_created:
-    title: '🏢 新公司成立: %company_name%'
+    title: "🏢 新公司成立: %company_name%"
     description: |
       一家全新的公司已经成立！
 
@@ -355,22 +359,22 @@ discord_webhook:
       > **公司代码:** `%company_id%`
       > **资本额:** `$ %capital%`
       > **核定股数:** `%shares% 股`
-    color: '#9B59B6'
-  
+    color: "#9B59B6"
+
   company_ipo:
-    title: '🔔 公司上市: %company_name% (%stock_id%)'
+    title: "🔔 公司上市: %company_name% (%stock_id%)"
     description: |
       公司 **%company_name%** 已通过 IPO 在交易所公开上市！
 
       > **股票代号:** `%stock_id%`
       > **IPO 价格:** `$ %ipo_price%`
       > **公开流通股:** `%ipo_shares% 股`
-    color: '#F39C12'
-  
+    color: "#F39C12"
+
   company_dissolved:
-    title: '💀 公司解散: %company_name%'
-    description: 公司 **%company_name%** 已正式宣告解散。所有剩余资产已按比例返还给股东。
-    color: '#7F8C8D'
+    title: "💀 公司解散: %company_name%"
+    description: "公司 **%company_name%** 已正式宣告解散。所有剩余资产已按比例返还给股东。"
+    color: "#7F8C8D"
 
 # =================================================================
 # 公司系统
@@ -379,67 +383,81 @@ discord_webhook:
 company:
   # 总开关。
   enabled: true
-  
+
   # 创建公司的註册费 (额外于资本额)。
   creation_cost: 5000.0
-  
+
   # 最低/最高註册资本额。
   min_registered_capital: 10000.0
-  max_registered_capital: 1.0E7
-  
+  max_registered_capital: 10000000.0
+
   # 核定股数限制。
   min_shares: 1000
   max_shares: 10000000
-  
+
   # 每位玩家最多可以创建几家公司。
   max_per_player: 2
-  
+
   # 创办人初始持股比例 (%)。剩余部分为库藏股。
   founder_shares_percent: 51.0
-  
+
+  # 公司总人数上限 (含所有成员)。
+  max_members: 20
+
   # 董事会人数上限 (不含 CEO/创办人)。
   max_board_members: 5
-  
+
   # 董事加入时从库藏股分配的奖励股数 (0 = 无奖励)。
   director_bonus_shares: 0
-  
+
   # 投票时限 (小时)。到期自动结算。
   vote_duration_hours: 48
-  
+
   # 一般提案通过门槛 (% 股份比例)。
   vote_pass_threshold: 50.0
-  
+
   # 重大提案通过门槛 (解散、弹劾，% 股份比例)。
   vote_critical_threshold: 66.0
-  
+
   # CEO 单次可直接提取的金库金额上限。超过此金额需要董事会投票。
   large_withdrawal_threshold: 50000
-  
+
   # --- IPO 上市条件 ---
   # 创立后至少几天才能申请上市。
   ipo_min_days_since_founded: 7
-  
+
   # 申请 IPO 的最低资本额要求。
   ipo_min_capital: 50000.0
-  
+
   # 申请 IPO 的最低董事人数。
   ipo_min_board_members: 2
-  
+
   # 投票通过后的 IPO 准备期 (小时)。
   ipo_preparation_hours: 24
-  
+
   # 上市后内部人 (创办人+董事) 的股票锁定天数。
   insider_lock_days: 30
-  
+
   # IPO 公开流通比例限制 (佔核定股数的百分比)。
   ipo_min_float_percent: 10.0
   ipo_max_float_percent: 49.0
-  
+
   # 私下股份转让的手续费 (%)。
   transfer_fee_percent: 1.0
-  
+
   # 解散公司时返还金库余额给股东的比例 (%)。
   dissolve_return_percent: 80.0
+
+# =================================================================
+# PlaceholderAPI 佔位符设定
+# =================================================================
+placeholder:
+  # 公司名称显示设定 (用于 %bdstock_my_company_name% 等佔位符)
+  company_name:
+    # 是否允许公司名称中的颜色代码 (&a, &b 等)
+    allow_color: true
+    # 公司名称最大显示字数 (去色码后计算，0 = 不限制)
+    max_length: 16
 
 # =================================================================
 # 购买限额
@@ -449,13 +467,13 @@ company:
 purchase_limits:
   # 总开关。
   enabled: false
-  
+
   # 预设每週期可购买的总金额 (-1 = 无限制)。
   default_limit: 10000.0
-  
+
   # 预设重置週期 (秒)。86400 = 24 小时。
   default_cooldown: 86400
-  
+
   # --- 权限数字模式 ---
   # 给予玩家 bdstock.purchase.limit.<数字> → 复盖 default_limit
   # 给予玩家 bdstock.purchase.cooldown.<数字> → 复盖 default_cooldown
@@ -464,20 +482,19 @@ purchase_limits:
   # 例: bdstock.purchase.cooldown.3600 → 每小时重置
   # 特殊: bdstock.purchase.bypass → 完全无限制
 
-    # --- 命名层级模式 (可选) ---
+  # --- 命名层级模式 (可选) ---
   # 如果不想用数字权限，可以在这里定义层级。
   # 优先级: bypass > 数字权限 > 命名层级 > default
   tiers:
     vip:
-      permission: bdstock.purchase.tier.vip
+      permission: "bdstock.purchase.tier.vip"
       limit: 50000.0
       cooldown: 86400
     mvp:
-      permission: bdstock.purchase.tier.mvp
+      permission: "bdstock.purchase.tier.mvp"
       limit: 200000.0
       cooldown: 43200
     premium:
-      permission: bdstock.purchase.tier.premium
+      permission: "bdstock.purchase.tier.premium"
       limit: -1
       cooldown: 86400
-language: zh_TW
